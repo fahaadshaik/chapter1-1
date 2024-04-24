@@ -48,81 +48,78 @@ a chapter written in crimson, fueled by the enigma of the Red Stone.
 <input id="yes" type="checkbox" name="story" value="yes" checked> <label for="yes">yes</label>
 <input id="no" type="checkbox" name="story" value="no" <label for="no">no</label>
 </fieldset>
-<button type="submit">Submit</button>
-<form action="submit_comment.php" method="post">
-  <label for="name">Name:</label><br>
-  <input type="text" id="name" name="name"><br>
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email"><br>
-  <label for="website">Website:</label><br>
-  <input type="url" id="website" name="website"><br>
-  <label for="comment">Comment:</label><br>
-  <textarea id="comment" name="comment"></textarea><br>
+<form method="post" action="process_comment.php">
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name" required>
+
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email" required>
+
+  <label for="comment">Comment:</label>
+  <textarea name="comment" id="comment" required></textarea>
+
   <input type="submit" value="Submit Comment">
 </form>
 <?php
-// Database connection settings
-$servername = "localhost";
-$username = "my_username";
-$password = "my_password";
-$dbname = "my_db";
+// Connect to the database
+$servername = "theredstonesaga";
+$username = "chapter1";
+$password = "9347fa53";
+$dbname = "github";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($theredstonesaga, $chapter1, $9347fa53, $github);
 
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-// Escape special characters in the comment text
-$name = $conn->real_escape_string($_POST['name']);
-$email = $conn->real_escape_string($_POST['email']);
-$website = $conn->real_escape_string($_POST['website']);
-$comment = $conn->real_escape_string($_POST['comment']);
+// Insert the comment into the database
+$name = $_POST['name'];
+$email = $_POST['email'];
+$comment = $_POST['comment'];
 
-// Insert comment into the database
-$sql = "INSERT INTO comments (name, email, website, comment, timestamp)
-        VALUES ('$name', '$email', '$website', '$comment', CURRENT_TIMESTAMP)";
+$sql = "INSERT INTO comments (name, email, comment) VALUES ('$name', '$email', '$comment')";
 
 if ($conn->query($sql) === TRUE) {
-  echo "Comment submitted successfully.";
+  echo "Comment submitted successfully!";
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 $conn->close();
 ?>
-<?php
-// Database connection settings
-$servername = "localhost";
-$username = "my_username";
-$password = "my_password";
-$dbname = "my_db";
+<div id="comments">
+  <?php
+  // Connect to the database
+  $servername = "theredstonesaga";
+  $username = "chapter1";
+  $password = "9347fa53";
+  $dbname = "github";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+  $conn = new mysqli($the redstonesaga, $chapter1, $9347fa53, $github);
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-// Retrieve comments from the database
-$sql = "SELECT * FROM comments ORDER BY timestamp DESC";
-$result = $conn->query($sql);
-
-// Display comments
-if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-    echo "<p><strong>" . $row["name"] . "</strong> <em>" . $row["timestamp"] . "</em><br>" . $row["comment"] . "</p>";
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
   }
-} else {
-  echo "No comments found.";
-}
 
-$conn->close();
-?>
+  // Retrieve comments from the database
+  $sql = "SELECT * FROM comments ORDER BY id DESC";
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "<p><strong>" . $row["name"] . "</strong> commented:<br>" . $row["comment"] . "</p>";
+    }
+  } else {
+    echo "No comments yet.";
+  }
+
+  $conn->close();
+  ?>
+</div>
  <footer>
       <p>
         My YouTube Channel <a href="http://www.youtube.com/@FSLAYEREDITZ">FAHAADSLAYER</a>
