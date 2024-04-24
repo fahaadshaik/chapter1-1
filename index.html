@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <hr>
 <div style="text-align:center; margin-top:40px;"><img src="logo.png"></div>
 
@@ -44,82 +45,10 @@ a chapter written in crimson, fueled by the enigma of the Red Stone.
 <img style="width: 33%;" src="image02.png">
 <img style="width: 33%;" src="image03.png">
 <fieldset>
- <legend>do you like this story?</legend>
-<input id="yes" type="checkbox" name="story" value="yes" checked> <label for="yes">yes</label>
-<input id="no" type="checkbox" name="story" value="no" <label for="no">no</label>
+            <legend>Do you like this story?</legend>
+            <label><input id="yes" type="radio" name="yes-no" value="yes"> yes</label>
+            <label><input id="no" type="radio" name="yes-no" value="no"> no</label>
 </fieldset>
-<form method="post" action="process_comment.php">
-  <label for="name">Name:</label>
-  <input type="text" name="name" id="name" required>
-
-  <label for="email">Email:</label>
-  <input type="email" name="email" id="email" required>
-
-  <label for="comment">Comment:</label>
-  <textarea name="comment" id="comment" required></textarea>
-
-  <input type="submit" value="Submit Comment">
-</form>
-<?php
-// Connect to the database
-$servername = "theredstonesaga";
-$username = "chapter1";
-$password = "9347fa53";
-$dbname = "github";
-
-$conn = new mysqli($theredstonesaga, $chapter1, $9347fa53, $github);
-
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-// Insert the comment into the database
-$name = $_POST['name'];
-$email = $_POST['email'];
-$comment = $_POST['comment'];
-
-$sql = "INSERT INTO comments (name, email, comment) VALUES ('$name', '$email', '$comment')";
-
-if ($conn->query($sql) === TRUE) {
-  echo "Comment submitted successfully!";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-$conn->close();
-?>
-<div id="comments">
-  <?php
-  // Connect to the database
-  $servername = "theredstonesaga";
-  $username = "chapter1";
-  $password = "9347fa53";
-  $dbname = "github";
-
-  $conn = new mysqli($the redstonesaga, $chapter1, $9347fa53, $github);
-
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-
-  // Retrieve comments from the database
-  $sql = "SELECT * FROM comments ORDER BY id DESC";
-  $result = $conn->query($sql);
-
-  if ($result->num_rows > 0) {
-    // Output data of each row
-    while($row = $result->fetch_assoc()) {
-      echo "<p><strong>" . $row["name"] . "</strong> commented:<br>" . $row["comment"] . "</p>";
-    }
-  } else {
-    echo "No comments yet.";
-  }
-
-  $conn->close();
-  ?>
-</div>
  <footer>
       <p>
         My YouTube Channel <a href="http://www.youtube.com/@FSLAYEREDITZ">FAHAADSLAYER</a>
