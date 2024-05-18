@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<header>
-<button>Menu</button>
-</header>
 <button id="menuButton">Menu</button>
 <div id="menu" style="display: none;">
   <!-- home about services -->
 </div>
+document.getElementById('menuButton').addEventListener('click', function() {
+  var menu = document.getElementById('menu');
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "block";
+  } else {
+    menu.style.display = "none";
+  }
+});
 <hr>
 <div style="text-align:center; margin-top:40px;"><img src="logo.png.png"></div>
 
